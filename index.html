@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mustufa Siddiqui — Visual Designer & Video Editor</title>
+<title>Mustufa Siddiqui — Visual Designer, Video Editor & Web Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{
-  /* Updated palette for a stronger blue/cyan digital vibe */
+  /* Enhanced digital glow palette */
   --bg-base:#e6f4fd;
   --blue-deep:#0a3678;
   --blue-mid:#0071bc;
@@ -29,9 +29,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg-base);color:var(--text-dark);overflow-x:hidden;cursor:none}
-#cursor{position:fixed;width:11px;height:11px;background:var(--blue-deep);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .18s,height .18s;mix-blend-mode:multiply}
-#cursor-trail{position:fixed;width:36px;height:36px;border:1.5px solid rgba(0,113,188,0.25);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%)}
-/* Gradient background emphasizing richer blues and cyans */
+#cursor{position:fixed;width:11px;height:11px;background:var(--blue-deep);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background-color .2s;mix-blend-mode:multiply}
+#cursor-trail{position:fixed;width:36px;height:36px;border:1.5px solid rgba(0,113,188,0.25);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:border-color .2s,transform .1s}
+/* Rich background depth */
 #three-canvas{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#ffffff 0%,#d2f1ff 25%,#a5dffc 50%,#71cbfa 73%,#009bd6 100%)}
 .page-wrapper{position:relative;z-index:1;min-height:100vh}
 nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;align-items:center;gap:0;padding:10px 24px;border-radius:100px;background:rgba(255,255,255,0.58);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.85);box-shadow:0 4px 32px rgba(0,113,188,0.11),0 1px 0 rgba(255,255,255,0.95) inset;white-space:nowrap}
@@ -40,17 +40,12 @@ nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:1000;dis
 .nav-links a{position:relative;display:block;padding:7px 15px;color:var(--text-mid);text-decoration:none;font-size:14px;font-weight:400;border-radius:100px;transition:color .2s;z-index:1}
 .nav-links a::before{content:'';position:absolute;inset:0;border-radius:100px;background:radial-gradient(ellipse at 50% 50%,rgba(0,113,188,0.12),transparent 70%);opacity:0;transition:opacity .25s;z-index:-1}
 .nav-links a:hover{color:var(--blue-deep)}.nav-links a:hover::before{opacity:1}
-#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 40px 80px;text-align:center;gap:36px}
+#home{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 40px 80px;text-align:center;gap:28px}
+.welcome-text{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,56px);font-style:italic;font-weight:400;color:var(--blue-deep);letter-spacing:-0.5px;margin-bottom:-10px}
 .hero-label{font-size:11.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--blue-mid);padding:6px 18px;border-radius:100px;border:1px solid rgba(0,113,188,0.18);background:rgba(255,255,255,0.62);backdrop-filter:blur(12px)}
 .hero-headline{font-family:'Instrument Serif',serif;font-size:clamp(40px,6vw,80px);font-weight:400;line-height:1.08;letter-spacing:-1px;background:linear-gradient(155deg,#06224a 0%,#0071bc 55%,#00aae7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;max-width:820px}
 .hero-headline em{font-style:italic;background:linear-gradient(135deg,#0a3678 0%,#00aae7 100%);-webkit-background-clip:text;background-clip:text}
-.hero-sub{font-size:17px;font-weight:300;line-height:1.75;color:var(--text-soft);max-width:540px}
-.spline-frame{width:min(680px,90vw);height:320px;border-radius:28px;background:rgba(255,255,255,0.32);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.85);box-shadow:0 24px 80px rgba(0,113,188,0.13),0 1.5px 0 rgba(255,255,255,0.9) inset;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;order:-1}
-.spline-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,170,255,0.1) 0%,transparent 60%);border-radius:inherit}
-.spline-placeholder{display:flex;flex-direction:column;align-items:center;gap:14px}
-.spline-icon{width:68px;height:68px;border-radius:20px;background:rgba(255,255,255,0.55);border:1px solid rgba(0,113,188,0.16);display:flex;align-items:center;justify-content:center;animation:iconFloat 4s ease-in-out infinite;box-shadow:0 4px 20px rgba(0,113,188,0.09)}
-@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.spline-note{font-size:12px;color:var(--text-soft);letter-spacing:2px;text-transform:uppercase}
+.hero-sub{font-size:17px;font-weight:300;line-height:1.75;color:var(--text-soft);max-width:620px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 .btn-glass{padding:13px 28px;border-radius:100px;border:1px solid rgba(0,113,188,0.18);background:rgba(255,255,255,0.58);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:var(--blue-deep);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .25s,box-shadow .25s;box-shadow:0 4px 20px rgba(0,113,188,0.09),0 1.5px 0 rgba(255,255,255,0.9) inset}
 .btn-glass:hover{transform:scale(1.03);background:rgba(255,255,255,0.8);box-shadow:0 8px 36px rgba(0,113,188,0.16),0 1.5px 0 rgba(255,255,255,1) inset}
@@ -61,30 +56,31 @@ section{padding:96px 40px;max-width:1200px;margin:0 auto}
 .section-title{font-family:'Instrument Serif',serif;font-size:clamp(30px,4vw,50px);font-weight:400;letter-spacing:-1px;line-height:1.12;background:linear-gradient(150deg,#06224a 0%,#0071bc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px}
 .section-sub{font-size:16px;color:var(--text-soft);max-width:480px;line-height:1.65;margin-bottom:56px}
 .section-divider{width:100%;height:1px;max-width:1200px;margin:0 auto;background:linear-gradient(90deg,transparent,rgba(0,113,188,0.12),transparent)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-.service-card{padding:38px 34px;border-radius:24px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:var(--glass-border);box-shadow:var(--glass-shadow);transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;position:relative;overflow:hidden}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.service-card{padding:38px 34px;border-radius:24px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:var(--glass-border);box-shadow:var(--glass-shadow);transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s,border-color .35s;position:relative;overflow:hidden}
 .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)}
-.service-card:hover{transform:translateY(-6px);box-shadow:0 20px 56px rgba(0,113,188,0.15),0 1.5px 0 rgba(255,255,255,1) inset}
-.service-icon{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,rgba(0,113,188,0.09),rgba(0,180,255,0.09));border:1px solid rgba(0,113,188,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:26px;font-size:24px;box-shadow:0 2px 12px rgba(0,113,188,0.07)}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(0,113,188,0.4);box-shadow:0 20px 56px rgba(0,113,188,0.18),0 1.5px 0 rgba(255,255,255,1) inset}
+.service-icon{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,rgba(0,113,188,0.09),rgba(0,180,255,0.09));border:1px solid rgba(0,113,188,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:26px;font-size:24px;box-shadow:0 2px 12px rgba(0,113,188,0.07);transition:transform .3s ease}
+.service-card:hover .service-icon{transform:scale(1.1) rotate(4deg)}
 .service-card h3{font-size:18px;font-weight:600;color:var(--text-dark);margin-bottom:10px;letter-spacing:-.3px}
 .service-card p{font-size:14.5px;color:var(--text-soft);line-height:1.7}
 .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media(max-width:900px){.portfolio-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:580px){.portfolio-grid{grid-template-columns:1fr}nav{padding:8px 14px}.nav-brand{font-size:13px;margin-right:14px}.nav-links a{padding:5px 9px;font-size:12px}}
-.portfolio-card{border-radius:20px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:var(--glass-border);box-shadow:0 6px 28px rgba(0,113,188,0.07),0 1px 0 rgba(255,255,255,0.9) inset;overflow:hidden;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;cursor:pointer}
-.portfolio-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 52px rgba(0,113,188,0.18),0 1px 0 rgba(255,255,255,1) inset}
+.portfolio-card{border-radius:20px;background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:var(--glass-border);box-shadow:0 6px 28px rgba(0,113,188,0.07),0 1px 0 rgba(255,255,255,0.9) inset;overflow:hidden;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s,border-color .35s;cursor:pointer}
+.portfolio-card:hover{transform:translateY(-8px) scale(1.01);border-color:rgba(0,113,188,0.35);box-shadow:0 20px 52px rgba(0,113,188,0.22),0 1px 0 rgba(255,255,255,1) inset}
 .portfolio-img{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden}
-/* Added styling to make background image look integrated behind the overlay elements */
-.portfolio-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1}
+.portfolio-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.portfolio-card:hover .portfolio-img img{transform:scale(1.06)}
 .card-art{width:100%;height:100%;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;mix-blend-mode:overlay}
 .ca-shape{position:absolute;border-radius:50%}
 .ca-line{position:absolute;height:1px;left:50%;transform:translateX(-50%)}
 .ca-text{font-family:'Instrument Serif',serif;font-size:14px;color:rgba(255,255,255,0.25);letter-spacing:2px;text-transform:uppercase;position:absolute;text-align:center;padding:0 20px}
 .pc-1{background:linear-gradient(135deg,#3a70d4 0%,#1a45a8 100%)}.pc-2{background:linear-gradient(135deg,#2758b8 0%,#0e3080 100%)}.pc-3{background:linear-gradient(135deg,#4d85e0 0%,#2050b0 100%)}.pc-4{background:linear-gradient(135deg,#1e56b8 0%,#0d3498 100%)}.pc-5{background:linear-gradient(135deg,#5590e8 0%,#2565c8 100%)}.pc-6{background:linear-gradient(135deg,#2860c0 0%,#103888 100%)}.pc-7{background:linear-gradient(135deg,#1040a0 0%,#0a2878 100%)}.pc-8{background:linear-gradient(135deg,#3a6dd8 0%,#1848b0 100%)}.pc-9{background:linear-gradient(135deg,#4878d8 0%,#1e50c0 100%)}
-.portfolio-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,34,74,0.75) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:18px;z-index:3}
+.portfolio-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,34,74,0.85) 0%,transparent 65%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:18px;z-index:3}
 .portfolio-card:hover .portfolio-overlay{opacity:1}
 .overlay-badge{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.3);padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px)}
-.portfolio-info{padding:18px 20px;position:relative;z-index:2;background:rgba(255,255,255,0.45)}
+.portfolio-info{padding:18px 20px;position:relative;z-index:2;background:rgba(255,255,255,0.45);border-top:1px solid rgba(255,255,255,0.5)}
 .portfolio-info h4{font-size:13.5px;font-weight:600;color:var(--text-dark);margin-bottom:5px;letter-spacing:-.2px}
 .portfolio-info p{font-size:12px;color:var(--text-soft);line-height:1.5}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
@@ -109,13 +105,16 @@ section{padding:96px 40px;max-width:1200px;margin:0 auto}
 .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(0,113,188,0.3)}
 .form-submit{margin-top:26px;width:100%;padding:14px;border-radius:12px;border:1px solid rgba(0,113,188,0.18);background:linear-gradient(135deg,rgba(0,113,188,0.82),rgba(0,170,240,0.82));color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;letter-spacing:.3px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;box-shadow:0 4px 20px rgba(0,113,188,0.18)}
 .form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,113,188,0.28)}
-#audio-widget{position:fixed;bottom:26px;right:26px;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,0.52);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.85);box-shadow:0 6px 28px rgba(0,113,188,0.12),0 1px 0 rgba(255,255,255,0.9) inset;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s}
-#audio-widget:hover{transform:scale(1.08);background:rgba(255,255,255,0.78)}
+
+/* Upgraded Interactive Audio Controls */
+#audio-widget{position:fixed;bottom:26px;right:26px;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,0.52);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(255,255,255,0.85);box-shadow:0 6px 28px rgba(0,113,188,0.12),0 1px 0 rgba(255,255,255,0.9) inset;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .2s,border-color .2s}
+#audio-widget:hover{transform:scale(1.08);background:rgba(255,255,255,0.78);border-color:rgba(0,113,188,0.35)}
 .wave-container{display:flex;align-items:center;gap:3px;height:20px}
-.wave-bar{width:3px;background:var(--blue-mid);border-radius:2px;animation:waveAnim .8s ease-in-out infinite}
+.wave-bar{width:3px;background:var(--blue-mid);border-radius:2px;height:4px;transition:transform 0.15s ease}
+.wave-bar.playing{animation:waveAnim .8s ease-in-out infinite}
 .wave-bar:nth-child(1){animation-delay:0s}.wave-bar:nth-child(2){animation-delay:.1s}.wave-bar:nth-child(3){animation-delay:.2s}.wave-bar:nth-child(4){animation-delay:.1s}.wave-bar:nth-child(5){animation-delay:0s}
 @keyframes waveAnim{0%,100%{height:4px}50%{height:18px}}
-.wave-bar.muted{height:4px!important;animation:none}
+
 footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);letter-spacing:.5px;border-top:1px solid rgba(0,113,188,0.1);position:relative;z-index:1}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -126,6 +125,8 @@ footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);
 <div id="cursor"></div>
 <div id="cursor-trail"></div>
 <canvas id="three-canvas"></canvas>
+
+<audio id="bg-music" src="Flawed Mangoes - Swimming (Visualizer).mp3" loop></audio>
 
 <nav>
   <span class="nav-brand">Mustufa Siddiqui</span>
@@ -139,22 +140,11 @@ footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);
 
 <div class="page-wrapper">
 <section id="home">
-  <div class="spline-frame reveal">
-    <div class="spline-placeholder">
-      <div class="spline-icon">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 4L28 10V22L16 28L4 22V10L16 4Z" stroke="#0071bc" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M16 4V28M4 10L28 22M28 10L4 22" stroke="#0071bc" stroke-width="0.75" opacity="0.4"/>
-        </svg>
-      </div>
-      <span class="spline-note">3D Interactive Model</span>
-    </div>
-  </div>
-  <div class="hero-label reveal reveal-delay-1">Visual Designer &amp; Video Editor</div>
-  <h1 class="hero-headline reveal reveal-delay-2">High-Impact Visuals.<br><em>Seamless Video Editing.</em></h1>
-  <p class="hero-sub reveal reveal-delay-3">Remote Visual Designer &amp; Video Editor delivering world-class graphics, high-CTR thumbnails, and high-pacing video edits for global clients.</p>
+  <div class="welcome-text reveal">Welcome to My Creative Space</div>
+  <div class="hero-label reveal reveal-delay-1">Visual Designer | Video Editor | Web Developer</div>
+  <h1 class="hero-headline reveal reveal-delay-2">High-Impact Visuals.<br><em>Seamless Code &amp; Edits.</em></h1>
+  <p class="hero-sub reveal reveal-delay-3">Freelance Visual Creator and Web Developer designing world-class glassmorphic layouts, frontend experiences, high-CTR thumbnails, and professional video editing workflows for global clients.</p>
   <div class="hero-cta reveal reveal-delay-4">
-    <!-- UPDATED: Text changed to "Explore More" and href updated to Google Drive Link -->
     <a href="https://drive.google.com/drive/folders/13ZfRZTf2_M9UD-9rqjlwlIS-s_snHlTJ" class="btn-glass primary" target="_blank" rel="noopener noreferrer">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="white" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="white" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="white" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="white" stroke-width="1.3"/></svg>
       Explore More
@@ -175,9 +165,10 @@ footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);
     <p class="section-sub">Every deliverable is crafted with precision — engineered to perform, not just look good.</p>
   </div>
   <div class="services-grid">
-    <div class="service-card reveal reveal-delay-1"><div class="service-icon">🎯</div><h3>High-CTR Thumbnail Design</h3><p>Custom-designed, psychology-driven thumbnails and social media posters built to force clicks and dramatically increase your content's reach.</p></div>
-    <div class="service-card reveal reveal-delay-2"><div class="service-icon">🎬</div><h3>Premium Video Editing</h3><p>Clean cuts, smooth transitions, perfect pacing, and expert visual storytelling for short and long-form content — from Reels to full-length YouTube.</p></div>
-    <div class="service-card reveal reveal-delay-3"><div class="service-icon">✨</div><h3>Motion Graphics &amp; Effects</h3><p>Advanced PC-based After Effects workflows adding elite visual flair, kinetic typography, and seamless overlays that elevate production value.</p></div>
+    <div class="service-card reveal reveal-delay-1"><div class="service-icon">💻</div><h3>Interactive Web Development</h3><p>Building clean, responsive, and high-performance digital spaces using tailored frameworks like Tailwind CSS, focusing on premium aesthetic experiences.</p></div>
+    <div class="service-card reveal reveal-delay-2"><div class="service-icon">🎯</div><h3>High-CTR Thumbnail Design</h3><p>Custom-designed, psychology-driven thumbnails and social media posters built to force clicks and dramatically increase your content's reach.</p></div>
+    <div class="service-card reveal reveal-delay-3"><div class="service-icon">🎬</div><h3>Premium Video Editing</h3><p>Clean cuts, smooth transitions, perfect pacing, and expert visual storytelling for short and long-form content — from Reels to full-length YouTube.</p></div>
+    <div class="service-card reveal reveal-delay-4"><div class="service-icon">✨</div><h3>Motion Graphics &amp; Effects</h3><p>Advanced PC-based After Effects workflows adding elite visual flair, kinetic typography, and seamless overlays that elevate production value.</p></div>
   </div>
 </section>
 
@@ -318,7 +309,7 @@ footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);
   <div class="contact-grid">
     <div class="about-card reveal reveal-delay-1">
       <span class="about-tag">About Me</span>
-      <p class="about-text">Based in Karachi, Pakistan, I am a dedicated freelance visual creator specializing exclusively in remote and online collaboration for clients worldwide. I combine sharp time management, professional communication, and visual storytelling to turn complex ideas into highly engaging digital assets.</p>
+      <p class="about-text">Based in Karachi, Pakistan, I am a dedicated freelance visual creator and web developer specializing exclusively in remote and online collaboration for clients worldwide. I combine modern architecture, sharp frontend engineering, and elite visual storytelling to turn ideas into fully immersive digital assets.</p>
       <div class="stats-row">
         <div><div class="stat-num">50+</div><div class="stat-label">Projects Delivered</div></div>
         <div><div class="stat-num">20+</div><div class="stat-label">Global Clients</div></div>
@@ -336,18 +327,12 @@ footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);
       </div>
     </div>
     
-    <!-- FIXED: Changed from <div> to <form>, added action and method attributes -->
     <form class="contact-card reveal reveal-delay-2" action="https://formspree.io/f/meedwdlp" method="POST">
       <span class="about-tag">Send a Message</span>
-      <!-- FIXED: Added name="name" and required validation -->
       <div class="form-field"><label>Your Name</label><input type="text" name="name" placeholder="John Doe" required></div>
-      <!-- FIXED: Added name="email" and required validation -->
       <div class="form-field"><label>Email Address</label><input type="email" name="email" placeholder="hello@example.com" required></div>
-      <!-- FIXED: Added name="project_type" -->
-      <div class="form-field"><label>Project Type</label><input type="text" name="project_type" placeholder="Thumbnail Design, Video Edit..."></div>
-      <!-- FIXED: Added name="message" and required validation -->
+      <div class="form-field"><label>Project Type</label><input type="text" name="project_type" placeholder="Web Development, Thumbnail Design, Video Edit..."></div>
       <div class="form-field"><label>Message</label><textarea rows="4" name="message" placeholder="Tell me about your project..." required></textarea></div>
-      <!-- FIXED: Changed button to type="submit" to handle Formspree processing -->
       <button type="submit" class="form-submit">Send Message &#8594;</button>
     </form>
   </div>
@@ -356,21 +341,27 @@ footer{text-align:center;padding:36px;font-size:12px;color:rgba(10,54,120,0.35);
 <footer>Copyright &copy; 2026 Mustufa Siddiqui. All rights reserved.</footer>
 </div>
 
-<div id="audio-widget" title="Toggle ambient audio">
+<div id="audio-widget" title="Toggle background audio">
   <div class="wave-container">
-    <div class="wave-bar muted"></div><div class="wave-bar muted"></div><div class="wave-bar muted"></div><div class="wave-bar muted"></div><div class="wave-bar muted"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
   </div>
 </div>
 
 <script>
-// CURSOR
+// CURSOR EFFECT ENHANCEMENTS
 const cursor=document.getElementById('cursor'),trail=document.getElementById('cursor-trail');
 let mx=0,my=0,tx=0,ty=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
 (function at(){tx+=(mx-tx)*.12;ty+=(my-ty)*.12;trail.style.left=tx+'px';trail.style.top=ty+'px';requestAnimationFrame(at)})();
 document.querySelectorAll('a,button,.portfolio-card,.service-card,#audio-widget').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.width='18px';cursor.style.height='18px';trail.style.width='54px';trail.style.height='54px'});
-  el.addEventListener('mouseleave',()=>{cursor.style.width='11px';cursor.style.height='11px';trail.style.width='36px';trail.style.height='36px'});
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='18px';cursor.style.height='18px';cursor.style.backgroundColor='var(--blue-mid)';
+    trail.style.width='54px';trail.style.height='54px';trail.style.borderColor='rgba(0,113,188,0.6)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='11px';cursor.style.height='11px';cursor.style.backgroundColor='var(--blue-deep)';
+    trail.style.width='36px';trail.style.height='36px';trail.style.borderColor='rgba(0,113,188,0.25)';
+  });
 });
 
 // THREE.JS BACKGROUND
@@ -384,13 +375,11 @@ document.querySelectorAll('a,button,.portfolio-card,.service-card,#audio-widget'
   const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,300);
   camera.position.set(0,0,20);
 
-  // Lighting tuned for cyan/blue highlights
   scene.add(new THREE.AmbientLight(0xcdeaff,1.0));
   const d1=new THREE.DirectionalLight(0x009bd6,1.5);d1.position.set(6,10,8);scene.add(d1);
   const d2=new THREE.DirectionalLight(0xa5dffc,0.8);d2.position.set(-8,-5,4);scene.add(d2);
   const pt=new THREE.PointLight(0x0071bc,2.0,60);pt.position.set(0,0,12);scene.add(pt);
 
-  // Helper: glass crystal material
   const glassMat=(col,op)=>new THREE.MeshPhongMaterial({color:col,transparent:true,opacity:op,shininess:200,specular:0xffffff,side:THREE.DoubleSide});
   const wireMat=(op)=>new THREE.MeshBasicMaterial({color:0x0071bc,transparent:true,opacity:op,wireframe:true});
 
@@ -416,34 +405,27 @@ document.querySelectorAll('a,button,.portfolio-card,.service-card,#audio-widget'
     crystals.push({mesh,wire,sp:d.sp,ph:Math.random()*Math.PI*2});
   });
 
-  // Large outer wireframe torus
   const torusGeo=new THREE.TorusGeometry(12,0.15,8,60);
   const torusMat=new THREE.MeshBasicMaterial({color:0x009bd6,transparent:true,opacity:.08,wireframe:false});
   const torus=new THREE.Mesh(torusGeo,torusMat);torus.rotation.x=Math.PI/3;scene.add(torus);
 
-  // Second ring rotated differently
   const torus2=new THREE.Mesh(new THREE.TorusGeometry(9,0.1,6,48),new THREE.MeshBasicMaterial({color:0x71cbfa,transparent:true,opacity:.07}));
   torus2.rotation.y=Math.PI/4;torus2.rotation.z=Math.PI/6;scene.add(torus2);
 
-  // Dodecahedron wireframe
-  const dGeo=new THREE.DodecahedronGeometry(7,0);
-  const dMat=new THREE.MeshBasicMaterial({color:0x0071bc,transparent:true,opacity:.06,wireframe:true});
-  const dMesh=new THREE.Mesh(dGeo,dMat);dMesh.position.set(0,0,-4);scene.add(dMesh);
+  const dMesh=new THREE.Mesh(new THREE.DodecahedronGeometry(7,0),new THREE.MeshBasicMaterial({color:0x0071bc,transparent:true,opacity:.06,wireframe:true}));
+  dMesh.position.set(0,0,-4);scene.add(dMesh);
 
-  // Particles
   const PC=320,pPos=new Float32Array(PC*3);
   for(let i=0;i<PC;i++){pPos[i*3]=(Math.random()-.5)*56;pPos[i*3+1]=(Math.random()-.5)*44;pPos[i*3+2]=(Math.random()-.5)*22-6}
   const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
   const pMesh=new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x009bd6,size:.10,transparent:true,opacity:.35,sizeAttenuation:true}));
   scene.add(pMesh);
 
-  // Line connections
   const lv=[];
   for(let i=0;i<80;i++){const a=Math.floor(Math.random()*PC),b=Math.floor(Math.random()*PC);lv.push(pPos[a*3],pPos[a*3+1],pPos[a*3+2],pPos[b*3],pPos[b*3+1],pPos[b*3+2])}
   const lGeo=new THREE.BufferGeometry();lGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(lv),3));
   scene.add(new THREE.LineSegments(lGeo,new THREE.LineBasicMaterial({color:0x009bd6,transparent:true,opacity:.08})));
 
-  // Mouse parallax
   let mx2=0,my2=0,tx2=0,ty2=0;
   document.addEventListener('mousemove',e=>{mx2=(e.clientX/window.innerWidth-.5)*2;my2=(e.clientY/window.innerHeight-.5)*2});
   window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight)});
@@ -471,13 +453,53 @@ const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.tar
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 setTimeout(()=>document.querySelectorAll('#home .reveal').forEach(el=>el.classList.add('visible')),100);
 
-// AUDIO
-const widget=document.getElementById('audio-widget'),waveBars=document.querySelectorAll('.wave-bar');
-let isMuted=true,audioCtx=null,gainNode=null;
-function createAmbient(){audioCtx=new(window.AudioContext||window.webkitAudioContext)();gainNode=audioCtx.createGain();gainNode.gain.value=.04;gainNode.connect(audioCtx.destination);[55,110,220,330].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=i%2?'triangle':'sine';o.frequency.value=f;g.gain.value=.012/(i+1);o.connect(g);g.connect(gainNode);o.start()})}
-widget.addEventListener('click',()=>{isMuted=!isMuted;if(!audioCtx)createAmbient();if(!isMuted){gainNode.gain.setTargetAtTime(.04,audioCtx.currentTime,.5);waveBars.forEach(b=>b.classList.remove('muted'))}else{gainNode.gain.setTargetAtTime(0,audioCtx.currentTime,.3);waveBars.forEach(b=>b.classList.add('muted'))}});
+// NATIVE AUDIO ENGINE WITH AUTO-PLAY OVERRIDES
+const audio = document.getElementById('bg-music');
+const widget = document.getElementById('audio-widget');
+const waveBars = document.querySelectorAll('.wave-bar');
+let musicStarted = false;
 
-// ANCHORS
+function updateWaveUI(playing) {
+  waveBars.forEach(b => {
+    if (playing) {
+      b.classList.add('playing');
+      b.style.height = ''; 
+    } else {
+      b.classList.remove('playing');
+      b.style.height = '4px';
+    }
+  });
+}
+
+function startAudio() {
+  if (musicStarted) return;
+  audio.play()
+    .then(() => {
+      musicStarted = true;
+      updateWaveUI(true);
+    })
+    .catch(err => console.log("Autoplay context waiting for definitive interaction."));
+}
+
+// Attempts immediate track start on earliest click event anywhere on the viewport
+document.addEventListener('click', startAudio, { once: false });
+
+widget.addEventListener('click', (e) => {
+  e.stopPropagation(); // Stops main document logic loops from interfering
+  if (!musicStarted) {
+    audio.play().then(() => { musicStarted = true; updateWaveUI(true); });
+    return;
+  }
+  if (audio.paused) {
+    audio.play();
+    updateWaveUI(true);
+  } else {
+    audio.pause();
+    updateWaveUI(false);
+  }
+});
+
+// ANCHOR SMOOTH SCROLLS
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{if(a.getAttribute('href').startsWith('#')){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}}));
 </script>
 </body>
